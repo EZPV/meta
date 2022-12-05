@@ -135,7 +135,7 @@ end
 
 local function serverHop()
     if getgenv().settings.webhookshop then
-        webhook(tostring("["..Players.LocalPlayer.DisplayName.."] Attempting to server hop"))
+        webhook(tostring("💫 ["..Players.LocalPlayer.DisplayName.."] Is attempting to server hop"))
     end
     local gameId = "8737602449"
     if vcEnabled and getgenv().settings.altServers then
@@ -743,7 +743,7 @@ end)
 webhookTab:Button("Test", "Sends a test message to your webhook to verify it is working", function()
     if getgenv().settings.webhookBox then
         webhook("EZPV's Donation Bot v1.0")
-	webhook("This is test")
+	webhook("test|https://Discord.gg/ezpv")
     end
 end)
 
@@ -815,9 +815,9 @@ local otherTab = win:Tab("Other", "http://www.roblox.com/asset/?id=10213989952")
 otherTab:Button("Discord Server", "Copies Discord server link", function()
     local cboard = setclipboard or toclipboard or set_clipboard or (Clipboard and Clipboard.set)
     if cboard then
-        cboard("https://discord.gg/tDNvX4JU6t")
+        cboard("https://discord.gg/ezpv")
     end
-    Flux:Notification("Copied to clipboard", "https://discord.gg/tDNvX4JU6t", "Okay")
+    Flux:Notification("Copied to clipboard", "https://discord.gg/ezpv", "Okay")
 end)
 
 otherTab:Line()
@@ -1008,7 +1008,7 @@ Players.LocalPlayer.leaderstats.Raised.Changed:Connect(function(newRaised)
             end
             if not sent then
                 local amount = newRaised - RaisedC
-                webhook(tostring("💰 Somebody tipped "..amount.." Robux to "..Players.LocalPlayer.DisplayName.." *[After Tax: "..math.floor(amount * 0.6).."]* (Total: " ..newRaised..")"))
+                webhook(tostring("💰 Somebody simped "..amount.." Robux to "..Players.LocalPlayer.DisplayName.." *[After Tax: "..math.floor(amount * 0.6).."]* (Total: " ..newRaised..")"))
             end
             RaisedC = newRaised
             
