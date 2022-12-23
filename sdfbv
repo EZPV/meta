@@ -916,25 +916,6 @@ if not pcall(findUnclaimed) then
     serverHop()
 end
 local claimCount = #unclaimed
---Claim booth function
-local function boothclaim()
-    require(game.ReplicatedStorage.Remotes).Event("ClaimBooth"):InvokeServer(unclaimed[1])
-    if not string.find(Players.LocalPlayer.PlayerGui.MapUIContainer.MapUI.BoothUI:FindFirstChild(tostring("BoothUI".. unclaimed[1])).Details.Owner.Text, Players.LocalPlayer.DisplayName) then
-        task.wait(1)
-        if not string.find(Players.LocalPlayer.PlayerGui.MapUIContainer.MapUI.BoothUI:FindFirstChild(tostring("BoothUI".. unclaimed[1])).Details.Owner.Text, Players.LocalPlayer.DisplayName) then
-            error()
-        end
-    end
-end
---Checks if booth claim fails
-while not pcall(boothclaim) do
-    if errCount >= claimCount then
-        serverHop()
-    end
-    table.remove(unclaimed, 1)
-    errCount += 1
-end
-hopSet()
 --Walks to booth
 local function noclip()
     for i,v in pairs(Players.LocalPlayer.Character:GetDescendants()) do
@@ -973,7 +954,28 @@ local function walkToBooth()
     Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(Players.LocalPlayer.Character.HumanoidRootPart.Position, Vector3.new(40, 14, 101)))
 end
 walkToBooth()
--- noclipper:Disconnect()
+--noclipper:Disconnect()
+
+--Claim booth function
+local function boothclaim()
+    require(game.ReplicatedStorage.Remotes).Event("ClaimBooth"):InvokeServer(unclaimed[1])
+    if not string.find(Players.LocalPlayer.PlayerGui.MapUIContainer.MapUI.BoothUI:FindFirstChild(tostring("BoothUI".. unclaimed[1])).Details.Owner.Text, Players.LocalPlayer.DisplayName) then
+        task.wait(1)
+        if not string.find(Players.LocalPlayer.PlayerGui.MapUIContainer.MapUI.BoothUI:FindFirstChild(tostring("BoothUI".. unclaimed[1])).Details.Owner.Text, Players.LocalPlayer.DisplayName) then
+            error()
+        end
+    end
+end
+--Checks if booth claim fails
+while not pcall(boothclaim) do
+    if errCount >= claimCount then
+        serverHop()
+    end
+    table.remove(unclaimed, 1)
+    errCount += 1
+end
+hopSet()
+
 require(game.ReplicatedStorage.Remotes).Event("RefreshItems"):InvokeServer()
 
 if getgenv().settings.signToggle and signPass then
